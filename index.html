@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adventure Places Finder</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffffff;
+      color: #003366;
+      margin: 0;
+      padding: 0;
+    }
 
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #007BFF;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #007BFF;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .card {
+      background-color: #f2f9ff;
+      border: 1px solid #007BFF;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+
+    .card img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .card p {
+      margin: 5px 0 10px;
+    }
+
+    .card a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .card a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Find Adventure Places in Your State</h1>
+  </header>
+
+  <div class="container">
+    <input type="text" id="stateInput" placeholder="Enter your state (e.g. Uttarakhand)">
+    <button onclick="searchPlaces()">Search</button>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    const placesData = {
+      "Uttarakhand": [
+        {
+          "name": "Valley of Flowers",
+          "description": "Beautiful Himalayan valley full of alpine flowers.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/4/45/Valley_of_Flowers_Uttarakhand_India.jpg",
+          "map": "https://goo.gl/maps/H9HQ3PqCMpUnfRhA7"
+        },
+        {
+          "name": "Rishikesh River Rafting",
+          "description": "Famous for white water rafting in the Ganga river.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/4/45/River_Rafting_in_Rishikesh.jpg",
+          "map": "https://goo.gl/maps/qmhtc1fQjZkpGkZa7"
+        }
+      ],
+      "Himachal Pradesh": [
+        {
+          "name": "Bir Billing",
+          "description": "World-famous paragliding destination.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/3/38/Paragliding_in_Bir_Billing.jpg",
+          "map": "https://goo.gl/maps/CbmScSE7fMvsbpqp8"
+        },
+        {
+          "name": "Spiti Valley",
+          "description": "Adventure-packed cold desert with monasteries and treks.",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/4/44/Spiti_Valley.jpg",
+          "map": "https://goo.gl/maps/3W2xT1ukB64nrpDb6"
+        }
+      ]
+    };
+
+    function searchPlaces() {
+      const state = document.getElementById("stateInput").value.trim();
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
+
+      if (placesData[state]) {
+        placesData[state].forEach(place => {
+          const card = `
+            <div class="card">
+              <h3>${place.name}</h3>
+              <img src="${place.image}" alt="${place.name}">
+              <p>${place.description}</p>
+              <a href="${place.map}" target="_blank">📍 View on Map</a>
+            </div>
+          `;
+          resultsDiv.innerHTML += card;
+        });
+      } else {
+        resultsDiv.innerHTML = "<p>No adventure places found for this state.</p>";
+      }
+    }
+  </script>
+</body>
+</html>
